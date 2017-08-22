@@ -60,7 +60,7 @@ $app->get('/datos/', function (Request $request, Response $response) {
 
 $app->post('/datos/', function (Request $request, Response $response) {    
     $ArrayDeParametros = $request->getParsedBody();
-   // var_dump($ArrayDeParametros);
+    //var_dump($ArrayDeParametros);
     $objeto= new stdclass();
     $objeto->nombre=$ArrayDeParametros['nombre'];
     $objeto->apellido=$ArrayDeParametros['apellido'];
