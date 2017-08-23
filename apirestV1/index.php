@@ -67,7 +67,6 @@ $app->post('/datos/', function (Request $request, Response $response) {
     $objeto->edad=$ArrayDeParametros['edad'];
     $newResponse = $response->withJson($objeto, 200);  
     return $newResponse;
-
 });
 
 /* atender todos los verbos de HTTP*/
