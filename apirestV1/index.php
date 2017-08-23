@@ -55,9 +55,13 @@ $app->delete('[/]', function (Request $request, Response $response) {
 $app->get('/datos/', function (Request $request, Response $response) {     
     $datos = array('nombre' => 'rogelio','apellido' => 'agua', 'edad' => 40);
     $newResponse = $response->withJson($datos, 200);  
+    //$newResponse = $response->withJson($datos, 404);  
+    //$newResponse = $response->withJson($datos, 500);  
     return $newResponse;
 });
 
+// Para que esto funcione en el Postman pasar los parametros nombre, apellido y edad eligiendo
+// Body y luego forma-data
 $app->post('/datos/', function (Request $request, Response $response) {    
     $ArrayDeParametros = $request->getParsedBody();
     //var_dump($ArrayDeParametros);
@@ -127,6 +131,8 @@ $app->group('/cd', function () {
 
 $this->get('/', \cd::class . ':traerTodos');
 $this->get('/{id}', \cd::class . ':traerUno');
+// Para que el delete funcione en el Postman pasar el parametro id eligiendo
+// Body y luego x-www-form-urlencoded
 $this->delete('/', \cd::class . ':BorrarUno');
 $this->put('/', \cd::class . ':ModificarUno');
 //se puede tener funciones definidas

@@ -11,6 +11,7 @@ class cd
 
  	public function TraerUno($request, $response, $args) {
      	$id=$args['id'];
+     	//var_dump($id);
     	$elCd=cd::TraerUnCd($id);
      	$newResponse = $response->withJson($elCd, 200);  
     	return $newResponse;
@@ -25,8 +26,11 @@ class cd
       	return $response;
     }
       public function BorrarUno($request, $response, $args) {
+      	//var_dump($request->getParsedBody());
      	$ArrayDeParametros = $request->getParsedBody();
+     	//var_dump($ArrayDeParametros);
      	$id=$ArrayDeParametros['id'];
+     	//var_dump($id);
      	$cd= new cd();
      	$cd->id=$id;
      	$cantidadDeBorrados=$cd->BorrarCd();
