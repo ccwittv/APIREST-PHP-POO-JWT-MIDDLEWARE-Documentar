@@ -33,6 +33,9 @@ $VerificadorDeCredenciales = function ($request, $response, $next) {
   if($request->isGet())
   {
      $response->getBody()->write('<p>NO necesita credenciales para los get</p>');
+// el next de la linea siguiente apunta a 
+// $this->get('/{id}', \cdApi::class . ':traerUno');
+// para que se ejecute y traiga un cd    
      $response = $next($request, $response);
   }
   else
