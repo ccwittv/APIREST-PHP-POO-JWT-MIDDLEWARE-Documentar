@@ -30,7 +30,7 @@ $app = new \Slim\App(["settings" => $config]);
 
 
 
-/*LLAMADA A METODOS DE INSTANCIA DE UNA CLASE*/
+/*LLAMADA A METODOS DE INSTANCIA DE LA CLASE cdApi*/
 $app->group('/cd', function () {
  
   $this->get('/', \cdApi::class . ':traerTodos')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
@@ -45,6 +45,7 @@ $app->group('/cd', function () {
      
 })->add(\MWparaAutentificar::class . ':VerificarUsuario')->add(\MWparaCORS::class . ':HabilitarCORS8080');
 
+/*LLAMADA A METODOS DE INSTANCIA DE LA CLASE usuarioApi*/
 $app->group('/usuario', function () {
  
   $this->get('/', \usuarioApi::class . ':traerTodos')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
@@ -58,5 +59,12 @@ $app->group('/usuario', function () {
   $this->put('/', \usuarioApi::class . ':ModificarUno');
      
 })->add(\MWparaCORS::class . ':HabilitarCORS8080');
+
+/*LLAMADA A METODOS DE INSTANCIA DE LA CLASE loginApi*/
+$app->group('/login', function () {
+   
+  $this->post('/', \loginApi::class . ':Ingreso');  
+     
+})->add(\MWparaAutentificar::class . ':VerificarUsuario')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 $app->run();

@@ -47,9 +47,10 @@ class MWparaAutentificar
 	
 			//tomo el token del header
 			/*
-				$arrayConToken = $request->getHeader('token');
+				$arrayConToken = $request->getHeader('token');			    
 				$token=$arrayConToken[0];			
 			*/
+			
 			var_dump($token);
 			$objDelaRespuesta->esValido=true; 
 			try 

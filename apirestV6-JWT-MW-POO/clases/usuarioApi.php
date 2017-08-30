@@ -1,4 +1,5 @@
 <?php
+require_once 'rol.php';
 require_once 'usuario.php';
 require_once 'IApiUsable.php';
 
@@ -26,13 +27,12 @@ class usuarioApi extends usuario implements IApiUsable
     	return $newresponse;
     }
 
-
     public function CargarUno($request, $response, $args) {
 
         $objDelaRespuesta= new stdclass();
         
         $ArrayDeParametros = $request->getParsedBody();
-        var_dump($ArrayDeParametros);
+        //var_dump($ArrayDeParametros);
         $nombre= $ArrayDeParametros['nombre'];
         $apellido= $ArrayDeParametros['apellido'];
         $mail= $ArrayDeParametros['mail'];
@@ -47,7 +47,18 @@ class usuarioApi extends usuario implements IApiUsable
         $miusuario->pass=$pass;
         $miusuario->nusuario=$nusuario;
         $miusuario->habilitado=$habilitado;
-        $miusuario->InsertarElUsuarioParametros();
+        $objDelaRespuesta->idGenerado = $miusuario->InsertarElUsuarioParametros();
+        //var_dump($objDelaRespuesta->idGenerado);
+        if (isset($objDelaRespuesta->idGenerado))
+          {
+            /*Si se generó el id de usuario se carga dicho usuario con el rol de usuario final*/
+            $rolUsuario = new rol();
+            $rolUsuario->idrol = 1;
+            $rolUsuario->idusuario = $objDelaRespuesta->idGenerado;
+            $rolUsuario->InsertarElRolalUsuarioParametros();            
+          }
+        
+//Carga de la foto
         $archivos = $request->getUploadedFiles();
         $destino="./fotos/";
         //var_dump($archivos);
@@ -60,6 +71,7 @@ class usuarioApi extends usuario implements IApiUsable
             $extension=array_reverse($extension);
             $archivos['foto']->moveTo($destino.$titulo.".".$extension[0]);
         }       
+        
         //$response->getBody()->write("se guardo el cd");
         $objDelaRespuesta->respuesta="Se guardo el Usuario.";   
         return $response->withJson($objDelaRespuesta, 200);
@@ -72,12 +84,17 @@ class usuarioApi extends usuario implements IApiUsable
       $id=$ArrayDeParametros['id'];
       $usuario= new usuario();
       $usuario->id=$id;
+      
       $cantidadDeBorrados=$usuario->BorrarUsuario();
-
       $objDelaRespuesta= new stdclass();
+      
       $objDelaRespuesta->cantidad=$cantidadDeBorrados;
       if($cantidadDeBorrados>0)
         {
+           $rolUsuario = new rol();
+           $rolUsuario->idusuario = $id;           
+           $rolUsuario->BorrarRolaUsuario();            
+
            $objDelaRespuesta->resultado="algo borro!!!";
         }
         else
@@ -85,7 +102,7 @@ class usuarioApi extends usuario implements IApiUsable
           $objDelaRespuesta->resultado="no Borro nada!!!";
         }
       $newResponse = $response->withJson($objDelaRespuesta, 200);  
-        return $newResponse;
+      return $newResponse;
 
      } 
      
