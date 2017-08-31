@@ -5,7 +5,7 @@ class rol
    public $idrol;
    public $idusuario;
 
-public function InsertarElRolalUsuarioParametros()
+   public function InsertarElRolalUsuarioParametros()
 	 {
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into roles (idrol,idusuario)values(:idrol,:idusuario)");
@@ -15,7 +15,7 @@ public function InsertarElRolalUsuarioParametros()
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();
 	 }
 
-public function BorrarRolaUsuario()
+   public function BorrarRolaUsuario()
 	 {
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta =$objetoAccesoDato->RetornarConsulta("
@@ -25,7 +25,17 @@ public function BorrarRolaUsuario()
 				$consulta->bindValue(':idusuario',$this->idusuario, PDO::PARAM_INT);		
 				$consulta->execute();
 				return $consulta->rowCount();
-	 }	 
+	 }
+    
+    public static function TraerRolUsuario($iduser)
+	 {
+	 	$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from roles where idusuario =:iduser");
+		$consulta->bindValue(':iduser', $iduser, PDO::PARAM_INT);
+		$consulta->execute();
+		$roldeusuarioBuscado= $consulta->fetchObject('rol');
+		return $roldeusuarioBuscado;	
+	 }	
 
 }
 ?> 

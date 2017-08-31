@@ -26,6 +26,23 @@ class usuario
 			return $usuarioBuscado;				
 			
 	} 
+	public static function TraerUnUsuarioParametros($usermail) 
+	{
+			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+			/*$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios where (mail=:usermail || nusuario=:usermail)");*/
+			$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios where mail=:usermail");
+			$consulta->bindValue(':usermail', $usermail, PDO::PARAM_STR);
+			$consulta->execute();
+			if ($consulta->rowCount() == 0)
+			 {
+			 	$consulta =$objetoAccesoDato->RetornarConsulta("select * from usuarios where nusuario=:usermail");
+			 	$consulta->bindValue(':usermail', $usermail, PDO::PARAM_STR);
+				$consulta->execute();
+			 }	
+			$usuarioBuscado= $consulta->fetchObject('usuario');
+			return $usuarioBuscado;				
+			
+	} 
 
 	public function InsertarElUsuarioParametros()
 	 {

@@ -7,6 +7,7 @@ require '../composer/vendor/autoload.php';
 require_once '/clases/AccesoDatos.php';
 require_once '/clases/cdApi.php';
 require_once '/clases/usuarioApi.php';
+require_once '/clases/loginApi.php';
 require_once '/clases/AutentificadorJWT.php';
 require_once '/clases/MWparaCORS.php';
 require_once '/clases/MWparaAutentificar.php';
@@ -63,8 +64,8 @@ $app->group('/usuario', function () {
 /*LLAMADA A METODOS DE INSTANCIA DE LA CLASE loginApi*/
 $app->group('/login', function () {
    
-  $this->post('/', \loginApi::class . ':Ingreso');  
+  $this->post('/', \login::class . ':Ingreso')->add(\MWparaCORS::class . ':HabilitarCORSTodos');  
      
-})->add(\MWparaAutentificar::class . ':VerificarUsuario')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 $app->run();

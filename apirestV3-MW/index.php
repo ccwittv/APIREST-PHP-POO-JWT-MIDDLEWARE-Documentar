@@ -103,6 +103,7 @@ TrearTodos
 /*habilito el CORS para todos*/
 $app->add(function ($req, $res, $next) {
     $response = $next($req, $res);
+    $response->getBody()->write('<p>Se habilita el CORS</p>');
     return $response
             ->withHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')

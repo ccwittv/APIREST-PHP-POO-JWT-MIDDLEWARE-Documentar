@@ -33,7 +33,7 @@ class MWparaAutentificar
 
 			//perfil=Profesor (GET, POST)
 			//$datos = array('usuario' => 'rogelio@agua.com','perfil' => 'profe', 'alias' => "PinkBoy");
-			
+
 			//perfil=Administrador(todos)
 			$datos = array('usuario' => 'rogelio@agua.com','perfil' => 'Administrador', 'alias' => "PinkBoy");
 			
