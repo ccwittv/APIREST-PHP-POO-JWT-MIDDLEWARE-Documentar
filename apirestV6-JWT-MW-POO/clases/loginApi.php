@@ -3,7 +3,7 @@
   require_once 'rol.php';
   require_once 'tiporol.php';
   require_once "AutentificadorJWT.php";
-  class login 
+  class loginApi
    {
      public $usermail;
      public $pass;
@@ -14,11 +14,13 @@
            $ArrayDeParametros = $request->getParsedBody();
            //var_dump($ArrayDeParametros);
            $usermail= $ArrayDeParametros['usermail'];
-           $pass= $ArrayDeParametros['pass'];
+           $pass= sha1($ArrayDeParametros['pass']);
+           //$pass= $ArrayDeParametros['pass'];  
 
            $miusuario = usuario::TraerUnUsuarioParametros($usermail);
 
            if($miusuario->pass == $pass)
+           //if($miusuario->pass == $pass) 
 			{				
                 $rolmiusuario =  rol::TraerRolUsuario($miusuario->id);
                 $tiporolmiusuario =  tiporol::TraerTipoRolUsuario($rolmiusuario->idrol);
@@ -36,7 +38,7 @@
      	   	//echo json_encode($arrayConToken);	
 
      	   	$objDelaRespuesta->respuesta=$datos;
-			$objDelaRespuesta->elToken=$token;	
+			    $objDelaRespuesta->elToken=$token;	
      	   	return $response->withJson($objDelaRespuesta, 401);  
    		}
 

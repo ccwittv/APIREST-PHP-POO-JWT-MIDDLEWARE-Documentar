@@ -64,7 +64,7 @@ $app->group('/usuario', function () {
 /*LLAMADA A METODOS DE INSTANCIA DE LA CLASE loginApi*/
 $app->group('/login', function () {
    
-  $this->post('/', \login::class . ':Ingreso')->add(\MWparaCORS::class . ':HabilitarCORSTodos');  
+  $this->post('/', \loginApi::class . ':Ingreso')->add(\MWparaCORS::class . ':HabilitarCORSTodos');  
      
 })->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 

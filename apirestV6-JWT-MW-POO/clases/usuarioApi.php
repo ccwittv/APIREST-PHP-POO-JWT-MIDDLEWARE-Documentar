@@ -36,7 +36,8 @@ class usuarioApi extends usuario implements IApiUsable
         $nombre= $ArrayDeParametros['nombre'];
         $apellido= $ArrayDeParametros['apellido'];
         $mail= $ArrayDeParametros['mail'];
-        $pass= $ArrayDeParametros['pass'];
+        $pass= sha1($ArrayDeParametros['pass']);
+        //$pass= sha1($ArrayDeParametros['pass']);  
         $nusuario= $ArrayDeParametros['nusuario'];
         $habilitado= $ArrayDeParametros['habilitado'];        
         
@@ -117,7 +118,8 @@ class usuarioApi extends usuario implements IApiUsable
         $miusuario->nombre=$ArrayDeParametros['nombre'];
         $miusuario->apellido=$ArrayDeParametros['apellido'];
         $miusuario->mail=$ArrayDeParametros['mail'];
-        $miusuario->pass=$ArrayDeParametros['pass'];
+        $miusuario->pass=sha1($ArrayDeParametros['pass']);
+        //$miusuario->pass=$ArrayDeParametros['pass']);
         $miusuario->nusuario=$ArrayDeParametros['nusuario'];
         $miusuario->habilitado=$ArrayDeParametros['habilitado'];
 
