@@ -54,7 +54,7 @@ class usuarioApi extends usuario implements IApiUsable
           {
             /*Si se generó el id de usuario se carga dicho usuario con el rol de usuario final*/
             $rolUsuario = new rol();
-            $rolUsuario->idrol = 1;
+            $rolUsuario->idrol = 2;
             $rolUsuario->idusuario = $objDelaRespuesta->idGenerado;
             $rolUsuario->InsertarElRolalUsuarioParametros();            
           }

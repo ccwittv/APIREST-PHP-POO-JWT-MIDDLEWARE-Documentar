@@ -10,30 +10,30 @@
 
      	public function Ingreso($request, $response, $args)
      	 {
-           $objDelaRespuesta= new stdclass();
-           $ArrayDeParametros = $request->getParsedBody();
-           //var_dump($ArrayDeParametros);
-           $usermail= $ArrayDeParametros['usermail'];
-           $pass= sha1($ArrayDeParametros['pass']);
-           //$pass= $ArrayDeParametros['pass'];  
+          $objDelaRespuesta= new stdclass();
+          $ArrayDeParametros = $request->getParsedBody();
+          //var_dump($ArrayDeParametros);
+          $usermail= $ArrayDeParametros['usermail'];
+          $pass= sha1($ArrayDeParametros['pass']);
+          //$pass= $ArrayDeParametros['pass'];  
 
-           $miusuario = usuario::TraerUnUsuarioParametros($usermail);
+          $miusuario = usuario::TraerUnUsuarioParametros($usermail);
 
-           if($miusuario->pass == $pass)
-           //if($miusuario->pass == $pass) 
-			{				
-                $rolmiusuario =  rol::TraerRolUsuario($miusuario->id);
-                $tiporolmiusuario =  tiporol::TraerTipoRolUsuario($rolmiusuario->idrol);
-				$datos = array('usuario' => $miusuario->mail,'perfil' => 
-				$tiporolmiusuario->descripcion , 'alias' => $miusuario->nusuario);
-			    $token= AutentificadorJWT::CrearTokenParametros($datos,$pass);
-			    $arrayConToken["MiTokenGeneradoEnPHP"] = $token;
-			    
-     	 	}
-     	   else 
-     	    {
-     	   		$arrayConToken["MiTokenGeneradoEnPHP"] = false;
-     	   	}
+          if($miusuario->pass == $pass)
+          //if($miusuario->pass == $pass) 
+			     {				
+            $rolmiusuario =  rol::TraerRolUsuario($miusuario->id);
+            $tiporolmiusuario =  tiporol::TraerTipoRolUsuario($rolmiusuario->idrol);
+				    $datos = array('usuario' => $miusuario->mail,'perfil' => 
+				    $tiporolmiusuario->descripcion , 'alias' => $miusuario->nusuario);
+			     //$token= AutentificadorJWT::CrearTokenParametros($datos,$pass);
+            $token= AutentificadorJWT::CrearToken($datos);
+			      $arrayConToken["MiTokenGeneradoEnPHP"] = $token;
+     	 	   }
+     	    else 
+     	      {
+     	   		 $arrayConToken["MiTokenGeneradoEnPHP"] = false;
+     	   	  }
 
      	   	//echo json_encode($arrayConToken);	
 
