@@ -44,7 +44,7 @@ $app->group('/cd', function () {
 
   $this->put('/', \cdApi::class . ':ModificarUno');
      
-})->add(\MWparaAutentificar::class . ':VerificarUsuario')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+})->add(\MWparaAutentificar::class . ':VerificarUsuario')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 /*LLAMADA A METODOS DE INSTANCIA DE LA CLASE usuarioApi*/
 $app->group('/usuario', function () {
@@ -59,7 +59,7 @@ $app->group('/usuario', function () {
 
   $this->put('/', \usuarioApi::class . ':ModificarUno');
      
-})->add(\MWparaCORS::class . ':HabilitarCORS8080');
+})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 /*LLAMADA A METODOS DE INSTANCIA DE LA CLASE loginApi*/
 $app->group('/login', function () {
